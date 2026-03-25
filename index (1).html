@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV | Mehderic Talbot - Technicien Informatique</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* === VARIABLES & RESET === */
+        :root {
+            --color-bg: #0D0D14;
+            --color-primary: #4F46E5;
+            --color-secondary: #8B5CF6;
+            --color-glow: rgba(79, 70, 229, 0.5);
+            --color-text-main: #F9FAFB;
+            --color-text-muted: #9CA3AF;
+            --color-border: rgba(255, 255, 255, 0.1);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* === BACKGROUND ANIMATION === */
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 15% 50%, var(--color-glow) 0%, transparent 20%),
+                radial-gradient(circle at 85% 30%, var(--color-glow) 0%, transparent 25%);
+            animation: background-pulse 10s ease-in-out infinite alternate;
+        }
+        @keyframes background-pulse {
+            from { opacity: 0.2; }
+            to { opacity: 0.4; }
+        }
+
+        /* === GLOBAL STYLES === */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        .section {
+            padding: 6rem 0;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* === HEADER & NAVIGATION === */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .header.scrolled {
+            background-color: rgba(13, 13, 20, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border);
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .nav__list {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+        .nav__link {
+            text-decoration: none;
+            color: var(--color-text-muted);
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+        .nav__link:hover {
+            color: var(--color-text-main);
+        }
+
+        /* === HERO SECTION === */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+        .hero__content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .hero__title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+        .hero__subtitle {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--color-text-main);
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+        }
+        .hero__description {
+            color: var(--color-text-muted);
+            max-width: 600px;
+            margin: 0 auto 2.5rem auto;
+            font-size: 1.1rem;
+        }
+        .hero__button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            color: var(--color-text-main);
+            background-image: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            transition: all 0.3s ease;
+            box-shadow: 0 0 25px rgba(0,0,0,0.3);
+        }
+        .hero__button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -10px var(--color-glow);
+        }
+
+        /* === CARDS (for Skills & Experience) === */
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-primary);
+            box-shadow: 0 0 30px var(--color-glow);
+        }
+
+        /* === EXPERIENCE TIMELINE === */
+        .timeline {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--color-primary), transparent);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+        }
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: var(--color-bg);
+            border: 4px solid var(--color-primary);
+            top: 25px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+        .timeline-content {
+            position: relative;
+        }
+        .timeline-date {
+            color: var(--color-text-muted);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .timeline-company {
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .timeline-description {
+            color: var(--color-text-muted);
+        }
+
+        /* === SKILLS SECTION === */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .skill-card__title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--color-primary);
+        }
+        .skill-card__list {
+            list-style: none;
+            color: var(--color-text-muted);
+        }
+        .skill-card__list li {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+        }
+        .skill-card__list li::before {
+            content: '✓';
+            color: var(--color-primary);
+            margin-right: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* === FOOTER (Contact Info) === */
+        .footer {
+            padding: 4rem 0;
+            text-align: center;
+            border-top: 1px solid var(--color-border);
+        }
+        .footer__contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .footer__contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--color-text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer__contact-item:hover {
+            color: var(--color-primary);
+        }
+        .footer__copyright {
+            color: #6B7280;
+            font-size: 0.9rem;
+        }
+        
+        /* === FADE-IN ANIMATION === */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .nav { display: none; }
+            .timeline::after { left: 10px; }
+            .timeline-item { width: 100%; padding-left: 50px; padding-right: 10px; }
+            .timeline-item:nth-child(odd), .timeline-item:nth-child(even) { left: 0; text-align: left; }
+            .timeline-item::after { left: 1px; }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="background-overlay"></div>
+
+    <header class="header" id="header">
+        <nav class="nav container">
+            <ul class="nav__list">
+                <li><a href="#hero" class="nav__link">Accueil</a></li>
+                <li><a href="#experience" class="nav__link">Parcours</a></li>
+                <li><a href="#competences" class="nav__link">Compétences</a></li>
+                <li><a href="#formation" class="nav__link">Formation</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero" id="hero">
+            <div class="container hero__content fade-in">
+                <h1 class="hero__title">MEHDERIC TALBOT</h1>
+                <h2 class="hero__subtitle">Technicien Informatique en Alternance</h2>
+                <p class="hero__description">
+                    Passionné par les systèmes numériques, je recherche une alternance pour mettre en pratique et approfondir mes compétences en maintenance, réseaux, cybersécurité et support technique.
+                </p>
+                <a href="#competences" class="hero__button">Découvrir mes compétences</a>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section class="section" id="experience">
+            <div class="container">
+                <h2 class="section-title fade-in">Expériences Professionnelles</h2>
+                <div class="timeline">
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-content card">
+                            <p class="timeline-date">2024</p>
+                            <h3 class="timeline-title">Stage Maintenance & Réseaux</h3>
+                            <p class="timeline-company">Marc Feler & La Région</p>
+                            <p class="timeline-description">Maintenance hardware, changement de composants et câblage téléphonique.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-content card">
+                            <p class="timeline-date">2023</p>
+                            <h3 class="timeline-title">Stage Support Technique</h3>
+                            <p class="timeline-company">Mairie de St Claude</p>
+                            <p class="timeline-description">Test, diagnostic, configuration PC et réparation d'ordinateurs en doublure.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-content card">
+                            <p class="timeline-date">2021</p>
+                            <h3 class="timeline-title">Stage Déploiement</h3>
+                            <p class="timeline-company">Conseil Départemental</p>
+                            <p class="timeline-description">Installation d'équipements, réparation logicielle et amélioration de la fluidité des systèmes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMPETENCES -->
+        <section class="section" id="competences">
+            <div class="container">
+                <h2 class="section-title fade-in">Compétences</h2>
+                <div class="skills-grid">
+                    <div class="card skill-card fade-in" style="transition-delay: 100ms;">
+                        <h3 class="skill-card__title"><i class="fas fa-tools"></i> Maintenance Hardware</h3>
+                        <ul class="skill-card__list">
+                            <li>Réparation d'ordinateurs</li>
+                            <li>Changement de composants (écrans, batteries...)</li>
+                            <li>Installation d'équipements</li>
+                            <li>Diagnostic de pannes</li>
+                        </ul>
+                    </div>
+                    <div class="card skill-card fade-in" style="transition-delay: 200ms;">
+                        <h3 class="skill-card__title"><i class="fas fa-network-wired"></i> Réseaux & Communication</h3>
+                        <ul class="skill-card__list">
+                            <li>Câblage réseaux</li>
+                            <li>Configuration de postes</li>
+                            <li>Réseaux de communication téléphonique</li>
+                            <li>Test de connectivité</li>
+                        </ul>
+                    </div>
+                    <div class="card skill-card fade-in" style="transition-delay: 300ms;">
+                        <h3 class="skill-card__title"><i class="fas fa-users-cog"></i> Savoir-être</h3>
+                        <ul class="skill-card__list">
+                            <li>Autonomie & Rigueur</li>
+                            <li>Capacité d'adaptation</li>
+                            <li>Esprit d'équipe</li>
+                            <li>Assiduité</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FORMATION -->
+        <section class="section" id="formation">
+            <div class="container">
+                 <h2 class="section-title fade-in">Formation</h2>
+                 <div class="timeline">
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-content card">
+                            <p class="timeline-date">2025</p>
+                            <h3 class="timeline-title">BAC PRO SN</h3>
+                            <p class="timeline-company">Systèmes Numériques</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-content card">
+                            <p class="timeline-date">2021</p>
+                            <h3 class="timeline-title">Brevet des Collèges</h3>
+                            <p class="timeline-company">Mention Obtenue</p>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__contact-info">
+                <a href="mailto:mehderictalbot7@gmail.com" class="footer__contact-item">
+                    <i class="fas fa-envelope"></i> mehderictalbot7@gmail.com
+                </a>
+                <a href="tel:0690484927" class="footer__contact-item">
+                    <i class="fas fa-phone"></i> 0690 48 49 27
+                </a>
+                 <a href="#" class="footer__contact-item">
+                    <i class="fab fa-linkedin"></i> LinkedIn 
+                </a>
+            </div>
+             <div class="footer__contact-info">
+                <span class="footer__contact-item">
+                    <i class="fas fa-map-marker-alt"></i> 97170 Petit Bourg, Guadeloupe
+                </span>
+                <span class="footer__contact-item">
+                    <i class="fas fa-car"></i> Permis B
+                </span>
+            </div>
+            <p class="footer__copyright">&copy; 2026 Mehderic Talbot. Conçu avec passion.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Navbar Scroll Effect ---
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // --- Fade-in Animation on Scroll ---
+        const faders = document.querySelectorAll('.fade-in');
+        const appearOptions = {
+            threshold: 0.2,
+            rootMargin: "0px 0px -50px 0px"
+        };
+        const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => {
+            appearOnScroll.observe(fader);
+        });
+    </script>
+</body>
+</html>
